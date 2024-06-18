@@ -1,0 +1,1 @@
+enum ControllerStates {initial, loading, success, error }

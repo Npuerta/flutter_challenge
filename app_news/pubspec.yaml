@@ -1,0 +1,26 @@
+name: app_news
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.5.0-236.0.dev <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.4.3+1
+  get_it: ^7.7.0
+  mocktail: ^1.0.4
+  provider: ^6.1.2
+  cached_network_image: ^3.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+  - assets/images/no_found.jpg
