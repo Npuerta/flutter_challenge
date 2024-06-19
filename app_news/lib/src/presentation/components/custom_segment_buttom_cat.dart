@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-class CustomSegmentButtom extends StatelessWidget {
-  const CustomSegmentButtom({super.key});
+class CustomSegmentButtomCat extends StatelessWidget {
+  const CustomSegmentButtomCat({super.key});
 
   @override
   Widget build(BuildContext context) {

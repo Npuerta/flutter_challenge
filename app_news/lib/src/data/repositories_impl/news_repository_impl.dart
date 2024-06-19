@@ -42,7 +42,7 @@ NewsRepositoryImpl(){
 
     @override
   Future<TopHeadlinesEntitie> getTopHeadLines(NewsApiParameters nap) async {
-      final response = await newsApi.getHeadLines(nap);
+      final response =  await newsApi.getHeadLines(nap);
      try {
       TopHeadlines result = TopHeadlines.fromJson(response);
        TopHeadlinesEntitie res = TopHeadlinesMapped.mapped(result);

@@ -26,13 +26,11 @@ class ImageDetail extends StatelessWidget{
           placeholder: (context, url) =>Image.asset('assets/images/no_found.jpg'),
           errorWidget: (context, url,error) =>Image.asset('assets/images/no_found.jpg'),
         ),
+
       ),
-       Row(
-        children: [
-          Text(day),
-          Text('Published By $source'),
-        ],
-      ),
+      SizedBox(width: 10,),
+      Text(day,overflow: TextOverflow.ellipsis,),
+      Text('Published By $source', overflow: TextOverflow.ellipsis,),
     ],
   );
   }

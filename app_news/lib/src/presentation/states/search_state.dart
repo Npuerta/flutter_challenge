@@ -6,8 +6,7 @@ class SearchState extends ChangeNotifier {
   String get state => _state;
 
   void setState(String input) {
-    String withOutWhiteSpaces = input.replaceAll(' ', '+');
-    _state = withOutWhiteSpaces;
+    _state = input;
     print(' se busca con:: $input');
     notifyListeners();
   }

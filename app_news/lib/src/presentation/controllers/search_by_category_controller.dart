@@ -23,8 +23,9 @@ _getMainNewsByCategory = GetMainNewsByCategory(_newsRepository);
 ControllerStates get state => _state;
 TopHeadlinesEntitie get topHeadlinesEntitie => _topHeadlinesEntitie;
 
-Future<void> getSearchByText(String category) async {
+Future<void> getSearchByCategory(String? category) async {
   try {
+     if (category==null) return;
    _state= ControllerStates.loading;
     notifyListeners();
 

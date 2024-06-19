@@ -23,8 +23,9 @@ _getSearchByText = GetSearchByText(_newsRepository);
 ControllerStates get state => _state;
 EverythingEntitie get everythingEntitie => _everythingEntitie;
 
-Future<void> getSearchByText(String searchText) async {
+Future<void> getSearchByText(String? searchText) async {
   try {
+     if (searchText==null) return;
    _state= ControllerStates.loading;
     notifyListeners();
 

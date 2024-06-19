@@ -4,9 +4,7 @@ import 'package:app_news/global/custom_exception.dart';
 import 'package:app_news/src/domain/entities/top_headlines_entitie.dart';
 import 'package:app_news/src/domain/repositories/news_repository.dart';
 import 'package:app_news/src/domain/usecases/get_main_news_by_country.dart';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MainNewsController extends ChangeNotifier {
 
@@ -24,11 +22,6 @@ _getMainNewsByCountry = GetMainNewsByCountry(_newsRepository);
 ControllerStates get state => _state;
 TopHeadlinesEntitie get topHeadlinesEntitie => _topHeadlinesEntitie;
 
-
-void getData(BuildContext context,String? country){
-  MainNewsController controller = Provider.of<MainNewsController>(context);
- controller.getMainNews(country);
-}
 
 Future<void> getMainNews(String? country) async {
   try {
