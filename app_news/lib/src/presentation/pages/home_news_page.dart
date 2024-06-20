@@ -1,33 +1,37 @@
 
 import 'package:app_news/global/constants.dart';
-import 'package:app_news/global/controller_states.dart';
-import 'package:app_news/global/custom_exception.dart';
 import 'package:app_news/src/presentation/components/custom_auto_complete.dart';
 import 'package:app_news/src/presentation/components/country_segment_buttom.dart';
+import 'package:app_news/src/presentation/components/list_categories_buttons.dart';
 import 'package:app_news/src/presentation/components/list_info_news.dart';
+import 'package:app_news/src/presentation/components/list_sources_news.dart';
 import 'package:app_news/src/presentation/controllers/main_news_controller.dart';
 import 'package:app_news/src/presentation/controllers/search_by_category_controller.dart';
 import 'package:app_news/src/presentation/controllers/search_by_text_controller.dart';
-import 'package:app_news/src/presentation/states/search_state.dart';
+import 'package:app_news/src/presentation/controllers/sources_news_controller.dart';
 import 'package:app_news/src/presentation/states/select_category_state.dart';
 import 'package:app_news/src/presentation/states/select_country_state.dart';
+import 'package:app_news/src/presentation/utils/state_controller_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class HomeNewsPage extends StatefulWidget {
-  const HomeNewsPage({super.key});
+ const HomeNewsPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _HomeNewsPage();
 }
 
 class _HomeNewsPage extends State<HomeNewsPage> {
-
+  final getIt = GetIt.instance;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SelectCountryState countryState = context.read<SelectCountryState>();
       context.read<MainNewsController>().getMainNews(countryState.state.name);
+      context.read<SourcesNewsController>().getSourcesByCountry(countryState.state.name);
       context.read<SearchByTextController>().getSearchByText;
       context.read<SearchByCategoryController>().getSearchByCategory;
     });
@@ -35,7 +39,7 @@ class _HomeNewsPage extends State<HomeNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       appBar: AppBar(),
       body: ListView(
         padding: EdgeInsets.all(5),
@@ -61,36 +65,7 @@ class _HomeNewsPage extends State<HomeNewsPage> {
             height: 8,
           ),
         
-        Consumer2<SelectCategoryState,SearchState>(
-          builder: (context, cState,sState, child) {
-            final listCategory = Categories.values;
-            return SizedBox(
-            height: 35,
-            child: ListView.separated(
-              padding: EdgeInsets.all(5),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-             return ElevatedButton(child: Text(listCategory[index].name),
-             onPressed: (){
-              if(cState.state== listCategory[index]) return;
-              if(listCategory[index] == Categories.search && sState.state=='') return;
-
-              if(listCategory[index] != Categories.search && listCategory[index] != Categories.topnews){
-                context.read<SearchByCategoryController>().getSearchByCategory(listCategory[index].name);
-              }
-            
-              context.read<SelectCategoryState>().setState(listCategory[index]);
-             },);
-           
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(width: 10);
-            },
-            itemCount: Categories.values.length),
-          );
-          },
-
-        ),
+        listCategoriesButtons(),
 
           SizedBox(
             height: 8,
@@ -102,12 +77,12 @@ class _HomeNewsPage extends State<HomeNewsPage> {
               builder: (context, newsController,sController,scController,cState,child) {
 
           if (cState.state == Categories.topnews) {
-                RenderObjectWidget? valido = stateControllerValidator(
+                RenderObjectWidget? valido = StateControllerValidator.valid(
                     newsController.state, newsController.error);
                 if (valido == null) {
                   final articles = newsController.topHeadlinesEntitie.articles;
                   return SizedBox(
-                      height: 500,
+                      height: 260,
                       child: ListInfoNews(
                         articles: articles!,
                       ));
@@ -115,12 +90,12 @@ class _HomeNewsPage extends State<HomeNewsPage> {
                   return valido;
                 }
               } else if (cState.state == Categories.search) {
-                RenderObjectWidget? valido = stateControllerValidator(
+                RenderObjectWidget? valido = StateControllerValidator.valid(
                     sController.state, sController.error);
                 if (valido == null) {
                   final articles = sController.everythingEntitie.articles;
                   return SizedBox(
-                      height: 500,
+                      height: 260,
                       child: ListInfoNews(
                         articles: articles!,
                       ));
@@ -128,12 +103,12 @@ class _HomeNewsPage extends State<HomeNewsPage> {
                   return valido;
                 }
               } else {
-                RenderObjectWidget? valido = stateControllerValidator(
+                RenderObjectWidget? valido = StateControllerValidator.valid(
                     scController.state, scController.error);
                 if (valido == null) {
                   final articles = scController.topHeadlinesEntitie.articles;
                   return SizedBox(
-                      height: 500,
+                      height: 260,
                       child: ListInfoNews(
                         articles: articles!,
                       ));
@@ -143,23 +118,18 @@ class _HomeNewsPage extends State<HomeNewsPage> {
               }
             },
           ),
+          SizedBox(height: 10,),
+          ListSourcesNews(),
+          SizedBox(height: 10,),
         ],
       ),
     );
+  
+    
+    
+
   }
 
-  RenderObjectWidget? stateControllerValidator(ControllerStates state, CustomException? error) {
-    if (state == ControllerStates.initial ||
-        state == ControllerStates.loading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (state == ControllerStates.error) {
-      return Column(
-        children: [
-          Text(error!.internalErrorCode),
-          Text(error.messageUser),
-        ],
-      );
-    } 
-   return null;
-  }
+
 }
+

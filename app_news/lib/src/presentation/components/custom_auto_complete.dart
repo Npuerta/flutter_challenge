@@ -56,13 +56,6 @@ class CustomAutoComplete extends StatelessWidget{
 
         },
         onSelected: (String selection) {
-          //  SearchByTextController sController = context.read<SearchByTextController>();
-          //   SearchState sState = context.read<SearchState>();
-          //   String withOutWhiteSpaces = selection.replaceAll(' ', '+');
-          //   if(sState.state !=withOutWhiteSpaces){
-          //   sController.getSearchByText(withOutWhiteSpaces);
-          //   sState.setState(withOutWhiteSpaces);
-          //   }
           selectText(selection);
            
         },

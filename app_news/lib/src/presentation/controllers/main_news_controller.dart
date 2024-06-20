@@ -13,6 +13,7 @@ class MainNewsController extends ChangeNotifier {
 
   late final NewsRepository _newsRepository;
   late final GetMainNewsByCountry _getMainNewsByCountry;
+  
   CustomException? error;
 
 MainNewsController(this._newsRepository){
