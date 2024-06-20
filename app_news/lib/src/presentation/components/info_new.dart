@@ -15,7 +15,7 @@ final ArticleEntitie item;
   final String day = DateFormat.yMMMMEEEEd().format(date);
   
    return  SizedBox(
-    width: 300,
+    width: (MediaQuery.of(context).size.width)/2,
     child: Column(
       children: [
         Center(
