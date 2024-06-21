@@ -16,8 +16,9 @@ class ListInfoVerticalNews extends StatelessWidget {
         (context, int index) {
           if(index < articles.length){
           final ArticleEntitie article=articles[index];
-          return InfoNew(item: article,);
+          return InfoNew(article: article,);
           }
+          return Text('');
         }
       ),
       ),

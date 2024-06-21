@@ -75,3 +75,7 @@ enum SortBy { relevancy, popularity, publishedAt }
 
 String urlApi = 'https://newsapi.org/v2/';
 String apiKey = 'apiKey=ef5c2b3ac88749cc9aac458180fc2c1f';
+
+String pageSizeSmall='10';
+String pageSizeMedium='20';
+String pageSizeBig='50';

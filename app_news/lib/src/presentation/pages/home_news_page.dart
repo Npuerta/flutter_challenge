@@ -3,7 +3,6 @@ import 'package:app_news/global/constants.dart';
 import 'package:app_news/src/presentation/components/custom_auto_complete.dart';
 import 'package:app_news/src/presentation/components/country_segment_buttom.dart';
 import 'package:app_news/src/presentation/components/list_categories_buttons.dart';
-import 'package:app_news/src/presentation/components/list_info_news.dart';
 import 'package:app_news/src/presentation/components/list_sources_news.dart';
 import 'package:app_news/src/presentation/controllers/main_news_controller.dart';
 import 'package:app_news/src/presentation/controllers/search_by_category_controller.dart';
@@ -11,7 +10,7 @@ import 'package:app_news/src/presentation/controllers/search_by_text_controller.
 import 'package:app_news/src/presentation/controllers/sources_news_controller.dart';
 import 'package:app_news/src/presentation/states/select_category_state.dart';
 import 'package:app_news/src/presentation/states/select_country_state.dart';
-import 'package:app_news/src/presentation/utils/state_controller_validator.dart';
+import 'package:app_news/src/presentation/components/process_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -75,46 +74,12 @@ class _HomeNewsPage extends State<HomeNewsPage> {
           ),
           Consumer4<MainNewsController,SearchByTextController,SearchByCategoryController,SelectCategoryState>(
               builder: (context, newsController,sController,scController,cState,child) {
-
           if (cState.state == Categories.topnews) {
-                RenderObjectWidget? valido = StateControllerValidator.valid(
-                    newsController.state, newsController.error);
-                if (valido == null) {
-                  final articles = newsController.topHeadlinesEntitie.articles;
-                  return SizedBox(
-                      height: 260,
-                      child: ListInfoNews(
-                        articles: articles!,
-                      ));
-                } else {
-                  return valido;
-                }
+                return ProcessController(controller: newsController);
               } else if (cState.state == Categories.search) {
-                RenderObjectWidget? valido = StateControllerValidator.valid(
-                    sController.state, sController.error);
-                if (valido == null) {
-                  final articles = sController.everythingEntitie.articles;
-                  return SizedBox(
-                      height: 260,
-                      child: ListInfoNews(
-                        articles: articles!,
-                      ));
-                } else {
-                  return valido;
-                }
+                return ProcessController(controller: sController);
               } else {
-                RenderObjectWidget? valido = StateControllerValidator.valid(
-                    scController.state, scController.error);
-                if (valido == null) {
-                  final articles = scController.topHeadlinesEntitie.articles;
-                  return SizedBox(
-                      height: 260,
-                      child: ListInfoNews(
-                        articles: articles!,
-                      ));
-                } else {
-                  return valido;
-                }
+                return ProcessController(controller: scController);
               }
             },
           ),
@@ -125,11 +90,7 @@ class _HomeNewsPage extends State<HomeNewsPage> {
       ),
     );
   
-    
-    
-
   }
-
 
 }
 

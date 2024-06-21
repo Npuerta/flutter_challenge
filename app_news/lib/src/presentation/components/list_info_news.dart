@@ -15,9 +15,11 @@ class ListInfoNews extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else {
             final ArticleEntitie article = articles[index];
-            return InfoNew(
-              item: article,
-            );
+            return 
+              InfoNew(
+                article: article,
+              );
+            
           }
         },
         separatorBuilder: (context, index) {
