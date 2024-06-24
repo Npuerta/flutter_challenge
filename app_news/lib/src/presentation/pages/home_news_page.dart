@@ -11,6 +11,8 @@ import 'package:app_news/src/presentation/controllers/sources_news_controller.da
 import 'package:app_news/src/presentation/states/select_category_state.dart';
 import 'package:app_news/src/presentation/states/select_country_state.dart';
 import 'package:app_news/src/presentation/components/process_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -34,10 +36,19 @@ class _HomeNewsPage extends State<HomeNewsPage> {
       context.read<SearchByTextController>().getSearchByText;
       context.read<SearchByCategoryController>().getSearchByCategory;
     });
+      CollectionReference data = FirebaseFirestore.instance.collection('autocompl');
+      print('muu');
   }
+
+  // Future<void> getFire() async {
+  //    await Firebase.initializeApp();
+  //    return data = FirebaseFirestore.instance.collection('autocompl');
+  // }
 
   @override
   Widget build(BuildContext context) {
+
+
     return  Scaffold(
       appBar: AppBar(),
       body: ListView(

@@ -20,11 +20,20 @@ class ImageDetail extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
+if (urlImage == null){
+return Container(
+   padding: EdgeInsets.all(5),
+    constraints: BoxConstraints(minWidth: minWidth, maxWidth: maxWidth,minHeight: 150, maxHeight: 180),
+  child: Image.asset('assets/images/no_found.jpg'),
+  );
+}
+
   return Column(
     children: [
       Container(
         padding: EdgeInsets.all(5),
-        constraints: BoxConstraints(minWidth: minWidth, maxWidth: maxWidth,minHeight: 180, maxHeight: 180),
+        constraints: BoxConstraints(minWidth: minWidth, maxWidth: maxWidth,minHeight: 150, maxHeight: 180),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: CachedNetworkImage(
