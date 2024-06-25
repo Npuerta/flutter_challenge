@@ -1,5 +1,6 @@
 import 'package:app_news/global/constants.dart';
 import 'package:app_news/src/presentation/controllers/main_news_controller.dart';
+import 'package:app_news/src/presentation/controllers/options_controller.dart';
 import 'package:app_news/src/presentation/controllers/sources_news_controller.dart';
 import 'package:app_news/src/presentation/states/select_category_state.dart';
 import 'package:app_news/src/presentation/states/select_country_state.dart';
@@ -28,8 +29,9 @@ class CountrySegmentButtom extends StatelessWidget {
           onSelectionChanged: (Set<Country> input) {
             countryState.setState(input.first);
             context.read<MainNewsController>().getMainNews(input.first.name);
-             context.read<SourcesNewsController>().getSourcesByCountry(input.first.name);
+            context.read<SourcesNewsController>().getSourcesByCountry(input.first.name);
             context.read<SelectCategoryState>().setState(Categories.topnews);
+             context.read<OptionsController>().optionsByCountry = input.first;
           },
           
           style: SegmentedButton.styleFrom(

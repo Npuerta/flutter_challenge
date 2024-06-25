@@ -81,3 +81,5 @@ String WeatherKey = '72bb04adf23c4c24952191455242406';
 String pageSizeSmall='10';
 String pageSizeMedium='20';
 String pageSizeBig='50';
+
+String colletionAutocompl='autocompl';

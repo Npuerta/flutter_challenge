@@ -31,7 +31,7 @@ EverythingEntitie get everythingEntitie => _everythingEntitie;
 
 Future<void> getSearchByText(String? searchText) async {
   try {
-     if (searchText==null) return;
+     if (searchText==null || searchText=='') return;
    cstate= ControllerStates.loading;
     notifyListeners();
 

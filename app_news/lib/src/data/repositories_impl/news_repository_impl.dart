@@ -1,13 +1,17 @@
 import 'package:app_news/global/api/custom_api_client.dart';
 import 'package:app_news/global/custom_exception.dart';
+import 'package:app_news/src/data/datasources/firebase_api.dart';
 import 'package:app_news/src/data/datasources/news_api.dart';
+import 'package:app_news/src/data/models/autocom_collection.dart';
 import 'package:app_news/src/data/models/everything.dart';
 import 'package:app_news/src/data/models/headlines.dart';
 import 'package:app_news/src/data/models/news_api_parameters.dart';
 import 'package:app_news/src/data/models/top_headlines.dart';
+import 'package:app_news/src/domain/entities/autocom_collection_entitie.dart';
 import 'package:app_news/src/domain/entities/everything_entitie.dart';
 import 'package:app_news/src/domain/entities/headlines_entitie.dart';
 import 'package:app_news/src/domain/entities/top_headlines_entitie.dart';
+import 'package:app_news/src/domain/mapped/Autocom_collection_mapped.dart';
 import 'package:app_news/src/domain/mapped/everything_mapped.dart';
 import 'package:app_news/src/domain/mapped/headlines_mapped.dart';
 import 'package:app_news/src/domain/mapped/top_headlines_mapped.dart';
@@ -16,9 +20,11 @@ import 'package:get_it/get_it.dart';
 
 class  NewsRepositoryImpl extends NewsRepository{
 late final NewsApi newsApi;
+late final FirebaseApi firebaseApi;
 
 NewsRepositoryImpl(){
   newsApi = NewsApi(GetIt.I<CustomApiClient>());
+  firebaseApi = FirebaseApi();
 }
 
   @override
@@ -76,5 +82,26 @@ NewsRepositoryImpl(){
       );
     }
   }
+
+  @override
+  Future<AutocomCollectionEntitie> getOptions(String collectionName)async {
+    final docs = await firebaseApi.getWords(collectionName);
+  try {
+    AutocomCollection result = AutocomCollection.fromData(docs);
+    AutocomCollectionEntitie res = AutocomCollectionMapped.mapped(result);
+    return res;
+      
+  } catch(e,s) {
+      throw CustomException(
+        messageUser: 'error consultando getOptions ${collectionName}',
+        internalErrorCode: '104',
+        internalErrorMessage: e.toString(),
+        stackTrace: s,
+        data: docs.toString(),
+      );
+    }
+  }
+
+
 
 }
