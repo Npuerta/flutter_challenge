@@ -24,11 +24,13 @@ class CustomAutoComplete extends StatelessWidget{
       SelectCategoryState cState = context.read<SelectCategoryState>();
       String withOutWhiteSpaces = value.replaceAll(' ', '+');
 
-      if (sState.state != withOutWhiteSpaces) {
+      if (sState.state != withOutWhiteSpaces && withOutWhiteSpaces != '') {
         sController.getSearchByText(withOutWhiteSpaces);
         sState.setState(withOutWhiteSpaces);
+        cState.setState(Categories.search);
       }
-      cState.setState(Categories.search);
+   
+   
     }
    
     return Consumer<OptionsController>(
