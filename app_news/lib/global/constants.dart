@@ -76,7 +76,7 @@ enum SortBy { relevancy, popularity, publishedAt }
 String urlApi = 'https://newsapi.org/v2/';
 String apiKey = 'apiKey=ef5c2b3ac88749cc9aac458180fc2c1f';
 
-String WeatherKey = '72bb04adf23c4c24952191455242406';
+String UrlApiWeather='http://api.weatherapi.com/v1/current.json?key=72bb04adf23c4c24952191455242406';
 
 String pageSizeSmall='10';
 String pageSizeMedium='20';

@@ -3,11 +3,13 @@ import 'package:app_news/src/presentation/components/custom_auto_complete.dart';
 import 'package:app_news/src/presentation/components/country_segment_buttom.dart';
 import 'package:app_news/src/presentation/components/list_categories_buttons.dart';
 import 'package:app_news/src/presentation/components/list_sources_news.dart';
+import 'package:app_news/src/presentation/components/weather_modal.dart';
 import 'package:app_news/src/presentation/controllers/main_news_controller.dart';
 import 'package:app_news/src/presentation/controllers/options_controller.dart';
 import 'package:app_news/src/presentation/controllers/search_by_category_controller.dart';
 import 'package:app_news/src/presentation/controllers/search_by_text_controller.dart';
 import 'package:app_news/src/presentation/controllers/sources_news_controller.dart';
+import 'package:app_news/src/presentation/controllers/weather_city_controller.dart';
 import 'package:app_news/src/presentation/states/select_category_state.dart';
 import 'package:app_news/src/presentation/states/select_country_state.dart';
 import 'package:app_news/src/presentation/components/process_controller.dart';
@@ -57,9 +59,9 @@ class _HomeNewsPage extends State<HomeNewsPage> {
                 child: SizedBox(height: 40, child: CountrySegmentButtom()))
           ]),
           SizedBox(
-              height: 50,
-              child: CustomAutoComplete(),
-              ),
+            height: 50,
+            child: CustomAutoComplete(),
+          ),
           SizedBox(
             height: 8,
           ),
@@ -89,6 +91,20 @@ class _HomeNewsPage extends State<HomeNewsPage> {
           ListSourcesNews(),
           SizedBox(
             height: 10,
+          ),
+            
+          Consumer<SelectCountryState>(builder: (context, countryState, child) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context
+                  .read<WeatherCityController>()
+                  .getWeatherCity(countryState.state);
+            });
+            return WeatherModal();
+          }
+            
+            ),
+          SizedBox(
+            height: 20,
           ),
         ],
       ),

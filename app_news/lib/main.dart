@@ -11,6 +11,7 @@ import 'package:app_news/src/presentation/controllers/search_by_category_control
 import 'package:app_news/src/presentation/controllers/search_by_source_controller.dart';
 import 'package:app_news/src/presentation/controllers/search_by_text_controller.dart';
 import 'package:app_news/src/presentation/controllers/sources_news_controller.dart';
+import 'package:app_news/src/presentation/controllers/weather_city_controller.dart';
 import 'package:app_news/src/presentation/pages/detail_new_page.dart';
 import 'package:app_news/src/presentation/pages/home_news_page.dart';
 import 'package:app_news/src/presentation/pages/source_news_page.dart';
@@ -57,6 +58,9 @@ final _routerApp = GoRouter(initialLocation: PagesRouter.home, routes: [
             ),
             ChangeNotifierProvider(
               create: (context) => OptionsController(getIt<NewsRepository>()),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => WeatherCityController(getIt<NewsRepository>()),
             ),
             ChangeNotifierProvider(
               create: (context) => SelectCountryState(),
