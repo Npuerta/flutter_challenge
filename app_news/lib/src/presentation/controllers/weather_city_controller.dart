@@ -33,7 +33,9 @@ class WeatherCityController extends ChangeNotifier {
         city = 'Medellin';
         language = 'es';
       } else if (contry == Country.ca) {
-        city = 'Ontario';
+        city = 'Nunavut';
+      } else if (contry == Country.ae) {
+        city = 'Dubai';
       }
 
       _weatherEntitie = await _getWeatherCity.call(city, language);

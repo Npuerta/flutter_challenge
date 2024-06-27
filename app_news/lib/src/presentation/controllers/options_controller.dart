@@ -49,18 +49,21 @@ class OptionsController extends ChangeNotifier {
 
 
 set optionsByCountry(Country country) {
-    if (country == Country.us || country == Country.ca) {
+    if (_state != ControllerStates.success) return;
+
+    if (country == Country.us || country == Country.ca || country == Country.ae) {
       AutocomDataEntitie data = autocomCollectionEntitie.data
           .firstWhere((aut) => aut.language == 'en');
-    
+
       _options = data.options;
     }
+
+    
 
     if (country == Country.co) {
       AutocomDataEntitie data = autocomCollectionEntitie.data
           .firstWhere((aut) => aut.language == 'es');
-       _options = data.options;
+      _options = data.options;
     }
-   
   }
 }

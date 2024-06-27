@@ -73,6 +73,7 @@ enum Language { ar, de, en, es, fr, he, it, nl, no, pt, ru, sv, ud, zh }
 
 enum SortBy { relevancy, popularity, publishedAt }
 
+
 String urlApi = 'https://newsapi.org/v2/';
 String apiKey = 'apiKey=ef5c2b3ac88749cc9aac458180fc2c1f';
 

@@ -27,8 +27,8 @@ class Current {
      tempC:  json['temp_c'] ?? 0.0,
      tempF:  json['temp_f'] ?? 0.0,
      windDegree: json['wind_degree'],
-     windKph:  json['wind_Kph'] ??0.0,
-     windMph:  json['wind_Mph'] ?? 0.0,
+     windKph:  json['wind_kph'] ??0.0,
+     windMph:  json['wind_mph'] ?? 0.0,
      condition:  Condition.fromJson(json['condition']),
     );
 
