@@ -1,6 +1,7 @@
 import 'package:app_news/global/controller_states.dart';
 import 'package:app_news/global/custom_exception.dart';
 import 'package:app_news/src/domain/entities/article_entitie.dart';
+import 'package:app_news/src/presentation/components/custom_circular_progress_indicator.dart';
 import 'package:app_news/src/presentation/components/result_articles.dart';
 import 'package:app_news/src/presentation/controllers/controller_for_articles.dart';
 import 'package:app_news/src/presentation/controllers/main_news_controller.dart';
@@ -50,7 +51,7 @@ class ProcessControllerOtherwise extends StatelessWidget {
 
       if (state == ControllerStates.initial ||
           state == ControllerStates.loading) {
-        return const Center(child: CircularProgressIndicator());
+        return CustomCircularProgressIndicator();
       } else if (state == ControllerStates.error) {
         return Column(
           children: [

@@ -1,4 +1,5 @@
 import 'package:app_news/src/domain/entities/article_entitie.dart';
+import 'package:app_news/src/presentation/components/custom_circular_progress_indicator.dart';
 import 'package:app_news/src/presentation/components/info_new.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class ListInfoNews extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           if (articles.length == index) {
-            return const Center(child: CircularProgressIndicator());
+            return CustomCircularProgressIndicator();
           } else {
             final ArticleEntitie article = articles[index];
             return 

@@ -1,6 +1,7 @@
 import 'package:app_news/global/constants.dart';
 import 'package:app_news/src/presentation/components/custom_auto_complete.dart';
 import 'package:app_news/src/presentation/components/country_segment_buttom.dart';
+import 'package:app_news/src/presentation/components/custom_scaffold.dart';
 import 'package:app_news/src/presentation/components/list_categories_buttons.dart';
 import 'package:app_news/src/presentation/components/list_sources_news.dart';
 import 'package:app_news/src/presentation/components/weather_modal.dart';
@@ -32,9 +33,7 @@ class _HomeNewsPage extends State<HomeNewsPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SelectCountryState countryState = context.read<SelectCountryState>();
       context.read<MainNewsController>().getMainNews(countryState.state.name);
-      context
-          .read<SourcesNewsController>()
-          .getSourcesByCountry(countryState.state.name);
+      context.read<SourcesNewsController>().getSourcesByCountry(countryState.state.name);
       context.read<OptionsController>().getOptionsAuto();
       context.read<SearchByTextController>().getSearchByText;
       context.read<SearchByCategoryController>().getSearchByCategory;
@@ -43,9 +42,9 @@ class _HomeNewsPage extends State<HomeNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
+    return CustomScaffold(
+      title: 'Noticias',
+      bodys: ListView(
         padding: EdgeInsets.all(5),
         children: [
           Row(children: <Widget>[
@@ -54,13 +53,22 @@ class _HomeNewsPage extends State<HomeNewsPage> {
               child: SizedBox(),
             ),
             Flexible(
-                flex: 1,
+                flex: 2,
                 fit: FlexFit.tight,
                 child: SizedBox(height: 40, child: CountrySegmentButtom()))
           ]),
           SizedBox(
+            height: 10,
+          ),
+          SizedBox(
             height: 50,
-            child: CustomAutoComplete(),
+            child:    
+             Consumer<SelectCountryState>(
+              builder: (context, countryState, child) {
+              context.read<OptionsController>().optionsByCountry = countryState.state;
+              return CustomAutoComplete();
+            }
+            ),
           ),
           SizedBox(
             height: 8,
@@ -88,26 +96,40 @@ class _HomeNewsPage extends State<HomeNewsPage> {
           SizedBox(
             height: 10,
           ),
-          ListSourcesNews(),
+      
+          Consumer<SelectCountryState>(
+            builder: (context, countryState, child) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+              context
+                  .read<SourcesNewsController>()
+                  .getSourcesByCountry(countryState.state.name);
+            });
+              return ListSourcesNews();
+            }
+          ),
+          
           SizedBox(
             height: 10,
           ),
-            
-          Consumer<SelectCountryState>(builder: (context, countryState, child) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              context
-                  .read<WeatherCityController>()
-                  .getWeatherCity(countryState.state);
-            });
-            return WeatherModal();
-          }
-            
-            ),
+      
+          //hacer los llamados del CountrySegmentButtom en el onSelectionChanged
+          // como se hace a continuacion
+          Consumer<SelectCountryState>(
+            builder: (context, countryState, child) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context
+                    .read<WeatherCityController>()
+                    .getWeatherCity(countryState.state);
+              });
+              return WeatherModal();
+            }
+          ),
           SizedBox(
             height: 20,
           ),
         ],
       ),
+      
     );
   }
 }

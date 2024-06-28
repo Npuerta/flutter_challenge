@@ -1,5 +1,6 @@
 import 'package:app_news/global/controller_states.dart';
 import 'package:app_news/src/domain/entities/headlines_source_entitie.dart';
+import 'package:app_news/src/presentation/components/custom_circular_progress_indicator.dart';
 import 'package:app_news/src/presentation/components/info_source.dart';
 import 'package:app_news/src/presentation/controllers/sources_news_controller.dart';
 
@@ -15,7 +16,7 @@ class ListSourcesNews extends StatelessWidget {
       builder: (context, snCotroller, child) {
         if (snCotroller.state == ControllerStates.initial ||
             snCotroller.state == ControllerStates.loading) {
-          return const Center(child: CircularProgressIndicator());
+          return CustomCircularProgressIndicator();
         } else if (snCotroller.state == ControllerStates.error) {
           return Column(
             children: [
@@ -36,7 +37,7 @@ class ListSourcesNews extends StatelessWidget {
                 'No hay Fuentes de noticias para el pais ${String.fromCharCodes(sad)}',
                 style: TextStyle(
                   fontSize: 20,
-                  color: const Color.fromARGB(255, 56, 11, 8),
+                  color: const Color.fromARGB(255, 115, 10, 3),
                 ),
               ),
             ),
@@ -49,7 +50,7 @@ class ListSourcesNews extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 if (sources.length == index) {
-                  return const Center(child: CircularProgressIndicator());
+                  return CustomCircularProgressIndicator();
                 } else {
                   final HeadlinesSourceEntitie hSource = sources[index];
                   return InfoSource(source: hSource);
