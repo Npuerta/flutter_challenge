@@ -24,10 +24,8 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-
-
 final getIt = GetIt.instance;
-void main() async{
+void main() async {
   getIt.registerSingleton<CustomApiClient>(CustomApiClient());
   getIt.registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl());
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,58 +38,21 @@ void main() async{
 
 final _routerApp = GoRouter(initialLocation: PagesRouter.home, routes: [
   GoRoute(
-      path: PagesRouter.home,
-      builder: (context, state) {
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => SearchByTextController(getIt<NewsRepository>()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => MainNewsController(getIt<NewsRepository>()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => SearchByCategoryController(getIt<NewsRepository>()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => SourcesNewsController(getIt<NewsRepository>()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => OptionsController(getIt<NewsRepository>()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => WeatherCityController(getIt<NewsRepository>()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => SelectCountryState(),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => SearchState(),
-            ),
-            ChangeNotifierProvider(
-              create: (context) => SelectCategoryState(),
-            ),
-          ],
-          child: HomeNewsPage(),
-        );
-      }),
+    path: PagesRouter.home,
+    builder: (context, state) => HomeNewsPage(),
+  ),
   GoRoute(
     path: PagesRouter.detailNews,
-    builder: (context, state) => DetailNewPage(article: state.extra as ArticleEntitie),
+    builder: (context, state) =>
+        DetailNewPage(article: state.extra as ArticleEntitie),
   ),
   GoRoute(
     path: PagesRouter.detailSource,
     builder: (context, state) {
-     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context)=> SearchBySourceController(getIt<NewsRepository>()),
-          )
-      ],
-      child: SourceNewsPage(source: state.extra as HeadlinesSourceEntitie),
-     );
+      // si se agrega MultiProvider se van a crea multiples instacias del SearchBySourceController
+      // al hacer al  SourceNewsPage
+      return SourceNewsPage(source: state.extra as HeadlinesSourceEntitie);
     },
-        
   ),
 ]);
 
@@ -100,9 +61,45 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: _routerApp,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SearchByTextController(getIt<NewsRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MainNewsController(getIt<NewsRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              SearchByCategoryController(getIt<NewsRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SourcesNewsController(getIt<NewsRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OptionsController(getIt<NewsRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => WeatherCityController(getIt<NewsRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SelectCountryState(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SearchState(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SelectCategoryState(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              SearchBySourceController(getIt<NewsRepository>()),
+        )
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: _routerApp,
+      ),
     );
   }
 }

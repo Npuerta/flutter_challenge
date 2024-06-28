@@ -37,10 +37,10 @@ class CountrySegmentButtom extends StatelessWidget {
         style: SegmentedButton.styleFrom(
           foregroundColor: const Color.fromARGB(255, 1, 9, 47),
           selectedForegroundColor: const Color.fromARGB(255, 237, 235, 253),
-          backgroundColor: const Color.fromARGB(255, 167, 173, 201),
-          selectedBackgroundColor: const Color.fromARGB(255, 42, 55, 239),
+          backgroundColor: const Color.fromARGB(255, 152, 152, 152),
+          selectedBackgroundColor: const Color.fromARGB(255, 60, 61, 83),
           side: BorderSide(
-              width: 2, color: const Color.fromARGB(255, 133, 131, 131)),
+              width: 2, color: const Color.fromARGB(255, 239, 235, 252)),
           padding: EdgeInsets.only(
             bottom: 8,
           ),

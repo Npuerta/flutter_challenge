@@ -11,6 +11,8 @@ class SourcesNewsController extends ChangeNotifier {
 
   late final NewsRepository _newsRepository;
   late final GetSourcesByCountry _getSourcesByCountry;
+
+  String currentCountry='';
   CustomException? error;
 
   SourcesNewsController(this._newsRepository) {
@@ -22,12 +24,14 @@ class SourcesNewsController extends ChangeNotifier {
 
   Future<void> getSourcesByCountry(String? country) async {
     try {
+      if(currentCountry==country)return;
+
       if (country == null) return;
       _state = ControllerStates.loading;
       notifyListeners();
 
       _headlinesEntitie = await _getSourcesByCountry.call(country);
-      
+      currentCountry=country;
       _state = ControllerStates.success;
       notifyListeners();
     } on CustomException catch (e) {

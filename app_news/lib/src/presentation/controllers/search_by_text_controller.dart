@@ -14,7 +14,7 @@ class SearchByTextController extends ControllerForArticles {
   late EverythingEntitie _everythingEntitie;
   late final NewsRepository _newsRepository;
   late final GetSearchByText _getSearchByText;
- 
+ String currentSearchText='';
 
 SearchByTextController(this._newsRepository){
 _getSearchByText = GetSearchByText(_newsRepository);
@@ -31,12 +31,13 @@ EverythingEntitie get everythingEntitie => _everythingEntitie;
 
 Future<void> getSearchByText(String? searchText) async {
   try {
-     if (searchText==null || searchText=='') return;
+     if (searchText==null || searchText=='' || currentSearchText==searchText) return;
    cstate= ControllerStates.loading;
     notifyListeners();
 
 _everythingEntitie = await _getSearchByText.call(searchText);
-
+    currentSearchText=searchText;
+    
     cstate= ControllerStates.success;
     notifyListeners();
     

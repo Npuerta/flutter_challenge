@@ -23,6 +23,10 @@ class listCategoriesButtons extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ElevatedButton(
                   child: Text(listCategory[index].name),
+                  style:ElevatedButton.styleFrom(
+                    foregroundColor: const Color.fromARGB(255, 31, 21, 93),
+                    backgroundColor: const Color.fromARGB(255, 189, 185, 212),
+                  ) ,
                   onPressed: () {
                     if (cState.state == listCategory[index]) return;
                     if (listCategory[index] == Categories.search &&

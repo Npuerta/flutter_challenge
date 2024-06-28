@@ -1,5 +1,6 @@
 import 'package:app_news/global/constants.dart';
 import 'package:app_news/global/controller_states.dart';
+import 'package:app_news/src/presentation/components/custom_circular_progress_indicator.dart';
 import 'package:app_news/src/presentation/controllers/options_controller.dart';
 
 import 'package:app_news/src/presentation/controllers/search_by_text_controller.dart';
@@ -33,7 +34,7 @@ class CustomAutoComplete extends StatelessWidget {
       builder: (context, opController, child) {
         if (opController.state == ControllerStates.initial ||
             opController.state == ControllerStates.loading) {
-          return const Center(child: CircularProgressIndicator());
+          return CustomCircularProgressIndicator();
         } else if (opController.state == ControllerStates.error) {
           return Column(
             children: [
@@ -49,14 +50,25 @@ class CustomAutoComplete extends StatelessWidget {
         return Autocomplete<String>(
           fieldViewBuilder:
               (context, textEditingController, focusNode, onFieldSubmitted) {
+
             return TextFormField(
               controller: textEditingController,
               focusNode: focusNode,
+              
               decoration: const InputDecoration(
                 labelText: 'buscar',
-                hoverColor: Color.fromARGB(255, 144, 202, 249),
+                hoverColor: Color.fromARGB(255, 236, 246, 255),
+                focusColor: Color.fromARGB(255, 189, 173, 249),
+                labelStyle: TextStyle(
+                  color: Color.fromARGB(255, 197, 230, 203)
+                ),
+
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: Color.fromARGB(255, 244, 244, 244), width: 0)
+                    ),
+                    fillColor: Color.fromARGB(255, 230, 229, 250),
+
               ),
               onFieldSubmitted: (value) {
                 selectText(value);
@@ -75,6 +87,7 @@ class CustomAutoComplete extends StatelessWidget {
           onSelected: (String selection) {
             selectText(selection);
           },
+  
         );
       },
     );

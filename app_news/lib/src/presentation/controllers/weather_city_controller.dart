@@ -11,7 +11,7 @@ class WeatherCityController extends ChangeNotifier {
   late final GetWeatherCity _getWeatherCity;
   late WeatherEntitie _weatherEntitie;
   CustomException? error;
-
+  String currentCountry='';
   ControllerStates _state = ControllerStates.initial;
 
   WeatherCityController(this._newsRepository) {
@@ -23,6 +23,8 @@ class WeatherCityController extends ChangeNotifier {
 
   Future<void> getWeatherCity(Country contry) async {
     try {
+    if(currentCountry==contry.name) return;
+
       _state = ControllerStates.loading;
       notifyListeners();
 
@@ -40,6 +42,7 @@ class WeatherCityController extends ChangeNotifier {
 
       _weatherEntitie = await _getWeatherCity.call(city, language);
 
+      currentCountry=contry.name;
       _state = ControllerStates.success;
       notifyListeners();
     } on CustomException catch (e) {

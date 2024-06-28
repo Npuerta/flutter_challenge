@@ -33,7 +33,10 @@ final ArticleEntitie article;
             child: Text(
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              article.title!),
+              article.title!,
+              style: TextStyle(
+                color: const Color.fromARGB(255, 241, 242, 247)
+              ),),
           ),
           ImageDetail(
             urlImage: article.urlToImage,

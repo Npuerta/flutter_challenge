@@ -21,8 +21,8 @@ final HeadlinesSourceEntitie source;
               maxLines: 2,
               overflow: TextOverflow.fade,
               style: TextStyle(
-                color: const Color.fromARGB(255, 46, 3, 53),
-                fontSize: 16,
+                color: const Color.fromARGB(255, 244, 236, 245),
+                fontSize: 18,
               ),
               textAlign: TextAlign.center,
               ),
@@ -33,7 +33,7 @@ final HeadlinesSourceEntitie source;
               maxLines: 2,
               overflow: TextOverflow.fade,
               style: TextStyle(
-                color: const Color.fromARGB(255, 150, 25, 169),
+                color: const Color.fromARGB(255, 71, 16, 107),
                 fontSize: 12,
               ),
               textAlign: TextAlign.center,
@@ -48,8 +48,8 @@ final HeadlinesSourceEntitie source;
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(172, 187, 187, 185),
-          disabledBackgroundColor: Color.fromARGB(172, 95, 95, 179),
+          backgroundColor: Color.fromARGB(172, 175, 143, 245),
+          disabledBackgroundColor: Color.fromARGB(172, 65, 65, 120),
           padding: EdgeInsets.only(top: 40,left: 10, right: 10), 
         ),
       ),

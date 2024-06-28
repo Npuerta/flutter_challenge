@@ -12,7 +12,7 @@ class SearchBySourceController extends ControllerForArticles {
   late EverythingEntitie _everythingEntitie;
   late final NewsRepository _newsRepository;
   late final GetNewsBySource _getNewsBySource;
-
+  String currentSourceId='';
 
   SearchBySourceController(this._newsRepository) {
     _getNewsBySource = GetNewsBySource(_newsRepository);
@@ -29,11 +29,14 @@ class SearchBySourceController extends ControllerForArticles {
   Future<void> getNewsBySource(
       String sourceId, String sortBy, String pageSize) async {
     try {
+
+      if(currentSourceId==sourceId) return;
       cstate = ControllerStates.loading;
       notifyListeners();
 
       _everythingEntitie = await _getNewsBySource.call(sourceId, sortBy, pageSize);
-
+      currentSourceId=sourceId;
+      
       cstate = ControllerStates.success;
       notifyListeners();
     } on CustomException catch (e) {

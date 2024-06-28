@@ -46,8 +46,12 @@ return Container(
         ),
       ),
       SizedBox(width: 10,),
-      Text(day,overflow: TextOverflow.ellipsis,),
-      Text('Published By $source', overflow: TextOverflow.ellipsis,),
+      Text(day,overflow: TextOverflow.ellipsis, style: TextStyle(
+                color: const Color.fromARGB(255, 241, 242, 247)
+              ),),
+      Text('Published By $source', overflow: TextOverflow.ellipsis, style: TextStyle(
+                color: const Color.fromARGB(255, 241, 242, 247)
+              ),),
     ],
   );
   }

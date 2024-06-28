@@ -1,5 +1,6 @@
 import 'package:app_news/global/constants.dart';
 import 'package:app_news/src/domain/entities/headlines_source_entitie.dart';
+import 'package:app_news/src/presentation/components/custom_scaffold.dart';
 import 'package:app_news/src/presentation/controllers/search_by_source_controller.dart';
 import 'package:app_news/src/presentation/components/process_controller.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +27,9 @@ class _SourceNewsPage extends State<SourceNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
+    return CustomScaffold(
+      title: 'Fuente',
+      bodys: Padding(
         padding: EdgeInsets.all(10),
         child: Column(children: [
           RichText(
@@ -37,7 +38,8 @@ class _SourceNewsPage extends State<SourceNewsPage> {
                 TextSpan(
                     style: TextStyle(
                       fontSize: 16,
-                      color: const Color.fromARGB(255, 10, 19, 87),
+                      color: const Color.fromARGB(255, 236, 237, 241),
+                      fontWeight: FontWeight.bold,
                     ),
                     text: widget.source.name),
               ],
@@ -46,20 +48,22 @@ class _SourceNewsPage extends State<SourceNewsPage> {
           SizedBox(
             height: 20,
           ),
-          RichText(
-            text: TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: const Color.fromARGB(255, 24, 42, 180),
-                    ),
-                    text: widget.source.description),
-              ],
+          Center(
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: const Color.fromARGB(255, 215, 218, 240),
+                      ),
+                      text: widget.source.description),
+                ],
+              ),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Consumer<SearchBySourceController>(
             builder: (context, ssCotroller, child) {
@@ -75,7 +79,7 @@ class _SourceNewsPage extends State<SourceNewsPage> {
                 TextSpan(
                     style: TextStyle(
                       fontSize: 14,
-                      color: const Color.fromARGB(255, 10, 19, 87),
+                      color: const Color.fromARGB(255, 31, 56, 248),
                     ),
                     text: 'para mas informacion'),
               ],
@@ -90,7 +94,7 @@ class _SourceNewsPage extends State<SourceNewsPage> {
                 TextSpan(
                     style: TextStyle(
                       fontSize: 12,
-                      color: const Color.fromARGB(255, 76, 37, 113),
+                      color: const Color.fromARGB(255, 138, 20, 249),
                     ),
                     text: widget.source.url),
               ],

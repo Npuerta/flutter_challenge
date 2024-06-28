@@ -14,25 +14,33 @@ class DetailNew extends StatelessWidget {
     final String day = DateFormat.yMMMMEEEEd().format(date);
 
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only( bottom: 5, left: 5,right: 5, top: 10),
       child: ListView(
         children: [
           Column(
             children: [
               Container(
-                height: 80,
+                height: 90,
                 padding: EdgeInsets.all(5),
                 child: Text(
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    article.title!),
+                    article.title??'---',
+                    style: TextStyle(
+                          fontSize: 16,
+                          color: const Color.fromARGB(255, 233, 226, 226),
+                          fontWeight: FontWeight.bold,
+                        ),),
               ),
               ImageDetail(
                 urlImage: article.urlToImage,
-                source: article.source!,
+                source: article.source??'---',
                 day: day,
                 minWidth: 100,
                 maxWidth: 500,
+              ),
+              SizedBox(
+                height: 10,
               ),
               RichText(
                 text: TextSpan(
@@ -40,9 +48,9 @@ class DetailNew extends StatelessWidget {
                     TextSpan(
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.black,
+                          color: const Color.fromARGB(255, 233, 226, 226),
                         ),
-                        text: article.description),
+                        text: article.description??'---'),
                   ],
                 ),
               ),
@@ -55,24 +63,29 @@ class DetailNew extends StatelessWidget {
                     TextSpan(
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.black,
+                          color: const Color.fromARGB(255, 243, 237, 237),
                         ),
-                        text: article.content),
+                        text: article.content??'---'),
                   ],
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Row(
                 children: [
-                  const Text('Escrito por : '),
+                  const Text('Escrito por : ',
+                                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 47, 8, 239)),
+                  ),
                   Text(
-                    article.author!,
+                    article.author??'---',
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 25, 61, 8)),
+                        color: const Color.fromARGB(255, 75, 42, 239)),
                   ),
                 ],
               ),
@@ -85,7 +98,7 @@ class DetailNew extends StatelessWidget {
                     TextSpan(
                       style: TextStyle(
                         fontSize: 14,
-                        color: const Color.fromARGB(255, 30, 3, 185),
+                        color:  const Color.fromARGB(255, 9, 123, 104),
                       ),
                       text: 'Mas informacion visita',
                     ),
@@ -101,10 +114,10 @@ class DetailNew extends StatelessWidget {
                     TextSpan(
                       style: TextStyle(
                         fontSize: 12,
-                        color: const Color.fromARGB(255, 60, 43, 160),
+                        color: const Color.fromARGB(255, 2, 126, 7),
                         decoration: TextDecoration.underline,
                       ),
-                      text: article.url,
+                      text: article.url??'---',
                     ),
                   ],
                 ),

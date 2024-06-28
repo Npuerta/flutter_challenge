@@ -1,4 +1,5 @@
 import 'package:app_news/src/domain/entities/article_entitie.dart';
+import 'package:app_news/src/presentation/components/custom_scaffold.dart';
 import 'package:app_news/src/presentation/components/detail_new.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,9 @@ class _DetailNewPage extends State<DetailNewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: DetailNew(article: widget.article),
+    return CustomScaffold(
+      title: 'Mas Informacion',
+      bodys: DetailNew(article: widget.article),
     );
   }
 }

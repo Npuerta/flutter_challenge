@@ -12,7 +12,7 @@ class MainNewsController extends ControllerForArticles {
   late TopHeadlinesEntitie _topHeadlinesEntitie;
   late final NewsRepository _newsRepository;
   late final GetMainNewsByCountry _getMainNewsByCountry;
-  
+  String currentCountry='';
 
 MainNewsController(this._newsRepository){
 _getMainNewsByCountry = GetMainNewsByCountry(_newsRepository);
@@ -28,10 +28,14 @@ TopHeadlinesEntitie get topHeadlinesEntitie => _topHeadlinesEntitie;
 Future<void> getMainNews(String? country) async {
   try {
     if (country==null) return;
+if(currentCountry==country)return;
+
    cstate= ControllerStates.loading;
     notifyListeners();
 
 _topHeadlinesEntitie = await _getMainNewsByCountry.call(country);
+
+currentCountry=country;
 
     cstate= ControllerStates.success;
     notifyListeners();
