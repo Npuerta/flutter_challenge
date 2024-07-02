@@ -11,44 +11,40 @@ class WeatherModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Consumer<WeatherCityController>(
-          builder: (context, wControlller, child) {
-            if (wControlller.state == ControllerStates.initial ||
-                wControlller.state == ControllerStates.loading) {
-              return CustomCircularProgressIndicator();
-            } else if (wControlller.state == ControllerStates.error) {
-              return Column(
-                children: [
-                  Text(wControlller.error!.internalErrorCode),
-                  Text(wControlller.error!.messageUser),
-                ],
+    return Consumer<WeatherCityController>(
+      builder: (context, wControlller, child) {
+        if (wControlller.state == ControllerStates.initial ||
+            wControlller.state == ControllerStates.loading) {
+          return CustomCircularProgressIndicator();
+        } else if (wControlller.state == ControllerStates.error) {
+          return Column(
+            children: [
+              Text(wControlller.error!.internalErrorCode),
+              Text(wControlller.error!.messageUser),
+            ],
+          );
+        }
+        WeatherEntitie weather = wControlller.weatherEntitie;
+        return Align(
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (ctx) => weatherAlert(weather: weather),
               );
-            }
-            WeatherEntitie weather = wControlller.weatherEntitie;
-            return Align(
-              alignment: Alignment.bottomRight,
-              child: FloatingActionButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (ctx) => weatherAlert(weather: weather),
-                  );
-                },
-                child: ImageWeather(
-                  urlImage: 'https:${weather.current.condition.icon}',
-                  moreBig: false,
-                ),
-                tooltip: 'Clima',
-                backgroundColor: const Color.fromARGB(248, 215, 225, 250),
-                shape: CircleBorder(),
-                splashColor: const Color.fromARGB(251, 122, 177, 244),
-              ),
-            );
-          },
-        )
-      ],
+            },
+            child: ImageWeather(
+              urlImage: 'https:${weather.current.condition.icon}',
+              moreBig: false,
+            ),
+            tooltip: 'Clima',
+            backgroundColor: const Color.fromARGB(248, 215, 225, 250),
+            shape: CircleBorder(),
+            splashColor: const Color.fromARGB(251, 122, 177, 244),
+          ),
+        );
+      },
     );
   }
 }

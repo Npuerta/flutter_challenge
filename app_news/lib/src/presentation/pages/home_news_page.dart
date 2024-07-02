@@ -15,7 +15,6 @@ import 'package:app_news/src/presentation/states/select_category_state.dart';
 import 'package:app_news/src/presentation/states/select_country_state.dart';
 import 'package:app_news/src/presentation/components/process_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class HomeNewsPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class HomeNewsPage extends StatefulWidget {
 }
 
 class _HomeNewsPage extends State<HomeNewsPage> {
-  final getIt = GetIt.instance;
+
   @override
   void initState() {
     super.initState();
